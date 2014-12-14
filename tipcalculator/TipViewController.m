@@ -36,4 +36,12 @@
     // DIspose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        [self setEdgesForExtendedLayout:UIRectEdgeBottom];
+}
+
 @end

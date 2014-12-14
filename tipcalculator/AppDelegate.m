@@ -20,8 +20,12 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     TipViewController *vc = [[TipViewController alloc] init];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nvc.navigationBar.barTintColor = [UIColor colorWithRed:0.19 green:0.57 blue:0.58 alpha:1.0];
+    nvc.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]};
     self.window.rootViewController = nvc;
     
     self.window.backgroundColor = [UIColor whiteColor];

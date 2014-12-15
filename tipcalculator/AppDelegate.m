@@ -22,7 +22,7 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    TipViewController *vc = [[TipViewController alloc] init];
+    TipViewController *vc = [[TipViewController alloc] initWithNibName:@"TipViewController" bundle:nil];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     nvc.navigationBar.barTintColor = [UIColor colorWithRed:0.19 green:0.57 blue:0.58 alpha:1.0];
     nvc.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]};

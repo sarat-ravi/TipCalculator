@@ -10,6 +10,7 @@
 
 @interface TipViewController ()
 
+// Properties
 @property (weak, nonatomic) IBOutlet UITextField *billTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *serviceSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *tipPercentLabel;
@@ -20,7 +21,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *youPayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalAmountLabel;
 
+// Actions
+- (IBAction)onSegmentedControlValueChanged:(id)sender;
 - (IBAction)onTap:(id)sender;
+- (IBAction)onTipPercentStepperValueChanged:(id)sender;
+- (IBAction)onNumberOfPeopleStepperValueChanged:(id)sender;
+
+// Helper Functions
 - (void)updateValues;
 
 @end
@@ -81,8 +88,32 @@
         [self setEdgesForExtendedLayout:UIRectEdgeBottom];
 }
 
+- (IBAction)onSegmentedControlValueChanged:(id)sender {
+    NSLog(@"onSegmentedControlValueChanged");
+    NSArray *tipValues = @[@(0.1), @(0.15), @(0.20)];
+    
+    int tipPercent = [tipValues[self.serviceSegmentedControl.selectedSegmentIndex] floatValue] * 100;
+    [self.tipPercentStepper setValue: tipPercent];
+    self.tipPercentLabel.text = [NSString stringWithFormat:@"%d%%", tipPercent];
+    [self updateValues];
+
+}
+
+
 - (IBAction)onTap:(id)sender {
     [self.view endEditing: YES];
+    [self updateValues];
+}
+
+- (IBAction)onTipPercentStepperValueChanged:(UIStepper *)sender {
+    int tipPercent = sender.value;
+    self.tipPercentLabel.text = [NSString stringWithFormat:@"%d%%", tipPercent];
+    [self updateValues];
+}
+
+- (IBAction)onNumberOfPeopleStepperValueChanged:(UIStepper *)sender {
+    int numPeople = sender.value;
+    self.numberOfPeopleLabel.text = [NSString stringWithFormat: @"%d", numPeople];
     [self updateValues];
 }
 

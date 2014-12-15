@@ -26,6 +26,7 @@
 - (IBAction)onTap:(id)sender;
 - (IBAction)onTipPercentStepperValueChanged:(id)sender;
 - (IBAction)onNumberOfPeopleStepperValueChanged:(id)sender;
+- (IBAction)billTextFieldDidBeginEditing:(id)sender;
 
 // Helper Functions
 - (void)updateValues;
@@ -52,6 +53,9 @@
     
     // inputs
     float billAmount = [[nf numberFromString:self.billTextField.text] floatValue];
+    if (billAmount == 0.0) {
+        billAmount = [self.billTextField.text floatValue];
+    }
     float tipPercent = [self.tipPercentLabel.text intValue] / 100.0;
     int numPeople = [self.numberOfPeopleLabel.text intValue];
     
@@ -90,6 +94,8 @@
 
 - (IBAction)onSegmentedControlValueChanged:(id)sender {
     NSLog(@"onSegmentedControlValueChanged");
+    [self.view endEditing: YES];
+
     NSArray *tipValues = @[@(0.1), @(0.15), @(0.20)];
     
     int tipPercent = [tipValues[self.serviceSegmentedControl.selectedSegmentIndex] floatValue] * 100;
@@ -106,15 +112,24 @@
 }
 
 - (IBAction)onTipPercentStepperValueChanged:(UIStepper *)sender {
+    [self.view endEditing: YES];
+
     int tipPercent = sender.value;
     self.tipPercentLabel.text = [NSString stringWithFormat:@"%d%%", tipPercent];
     [self updateValues];
 }
 
 - (IBAction)onNumberOfPeopleStepperValueChanged:(UIStepper *)sender {
+    [self.view endEditing: YES];
+
     int numPeople = sender.value;
     self.numberOfPeopleLabel.text = [NSString stringWithFormat: @"%d", numPeople];
     [self updateValues];
+}
+
+- (IBAction)billTextFieldDidBeginEditing:(UITextField *)textField {
+    NSLog(@"billTextFieldDidBeginEditing");
+    textField.text = @"$";
 }
 
 @end

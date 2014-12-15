@@ -27,6 +27,8 @@
 - (IBAction)onTipPercentStepperValueChanged:(id)sender;
 - (IBAction)onNumberOfPeopleStepperValueChanged:(id)sender;
 - (IBAction)billTextFieldDidBeginEditing:(id)sender;
+- (IBAction)onBillTextFieldEditingChanged:(id)sender;
+- (IBAction)billTextFieldEditingDidEnd:(id)sender;
 
 // Helper Functions
 - (void)updateValues;
@@ -130,6 +132,26 @@
 - (IBAction)billTextFieldDidBeginEditing:(UITextField *)textField {
     NSLog(@"billTextFieldDidBeginEditing");
     textField.text = @"$";
+}
+
+- (IBAction)onBillTextFieldEditingChanged:(UITextField *)textField {
+    // NSLog(@"billTextFieldEditingChagned");
+    NSString *billText = textField.text;
+    if ([billText isEqualToString:@""]) {
+        textField.text = @"$";
+    }
+    
+    if ([billText rangeOfString:@"."].location != NSNotFound) {
+        NSString *stringAfterDot = [[billText componentsSeparatedByString:@"."] lastObject];
+        if ([stringAfterDot length] == 2) {
+            [self.view endEditing: YES];
+            [self updateValues];
+        }
+    }
+}
+
+- (IBAction)billTextFieldEditingDidEnd:(UITextField *)textField {
+    NSLog(@"billTextFieldEditingDidEnd");
 }
 
 @end

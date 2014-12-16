@@ -61,7 +61,7 @@
     }
     float tipPercent = [self.tipPercentLabel.text intValue] / 100.0;
     int numPeople = [self.numberOfPeopleLabel.text intValue];
-    
+        
     // outputs
     float tipAmount = billAmount * tipPercent;
     float totalAmount = billAmount + tipAmount;
@@ -74,13 +74,32 @@
     self.totalAmountLabel.text = [NSString stringWithFormat:@"$%0.2f", totalAmount];
 }
 
+-(void)loadValues {
+    int index = (int) self.serviceSegmentedControl.selectedSegmentIndex;
+    
+    NSArray *tipKeys = @[@"TERRIBLE_SERVICE_PERCENT", @"DECENT_SERVICE_PERCENT", @"GREAT_SERVICE_PERCENT"];
+    NSArray *defaultTipPercents = @[@(10), @(15), @(20)];
+    NSString *tipKey = [tipKeys objectAtIndex: index];
+    
+    int tipPercent = (int) [defaultTipPercents objectAtIndex: index];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey: tipKey] != nil) {
+        tipPercent = (int) [defaults integerForKey: tipKey];
+    }
+    
+    self.tipPercentLabel.text = [NSString stringWithFormat: @"%d%%", tipPercent];
+}
+
 -(void)viewDidLoad
 {
+    NSLog(@"TipViewController: viewDidLoad");
     [super viewDidLoad];
+    [self loadValues];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    NSLog(@"TipViewController: viewDidAppear");
     [super viewDidAppear:animated];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: [self getCustomSettingsButton]];
     [self updateValues];
@@ -120,14 +139,22 @@
 - (IBAction)onSegmentedControlValueChanged:(id)sender {
     NSLog(@"onSegmentedControlValueChanged");
     [self.view endEditing: YES];
-
-    NSArray *tipValues = @[@(0.1), @(0.15), @(0.20)];
     
-    int tipPercent = [tipValues[self.serviceSegmentedControl.selectedSegmentIndex] floatValue] * 100;
+    int index = (int) self.serviceSegmentedControl.selectedSegmentIndex;
+
+    NSArray *tipKeys = @[@"TERRIBLE_SERVICE_PERCENT", @"DECENT_SERVICE_PERCENT", @"GREAT_SERVICE_PERCENT"];
+    NSArray *defaultTipPercents = @[@(10), @(15), @(20)];
+    NSString *tipKey = [tipKeys objectAtIndex: index];
+    
+    int tipPercent = (int) [defaultTipPercents objectAtIndex: index];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey: tipKey] != nil) {
+        tipPercent = (int) [defaults integerForKey: tipKey];
+    }
+    
     [self.tipPercentStepper setValue: tipPercent];
     self.tipPercentLabel.text = [NSString stringWithFormat:@"%d%%", tipPercent];
     [self updateValues];
-
 }
 
 

@@ -182,7 +182,7 @@
 
 - (IBAction)billTextFieldDidBeginEditing:(UITextField *)textField {
     NSLog(@"billTextFieldDidBeginEditing");
-    // textField.text = @"$0.00";
+    textField.text = @"$0.00";
 }
 
 - (NSString *)shiftRightText:(NSString *)textInput {

@@ -61,7 +61,7 @@
     }
     float tipPercent = [self.tipPercentLabel.text intValue] / 100.0;
     int numPeople = [self.numberOfPeopleLabel.text intValue];
-        
+    
     // outputs
     float tipAmount = billAmount * tipPercent;
     float totalAmount = billAmount + tipAmount;
@@ -88,6 +88,7 @@
     }
     
     self.tipPercentLabel.text = [NSString stringWithFormat: @"%d%%", tipPercent];
+    self.tipPercentStepper.value = (double) tipPercent;
 }
 
 -(void)viewDidLoad
@@ -181,22 +182,64 @@
 
 - (IBAction)billTextFieldDidBeginEditing:(UITextField *)textField {
     NSLog(@"billTextFieldDidBeginEditing");
-    textField.text = @"$";
+    // textField.text = @"$0.00";
+}
+
+- (NSString *)shiftRightText:(NSString *)textInput {
+    // 0.1 --> 0.01
+    // 12.3 --> 1.23
+    
+    NSMutableString *text = [NSMutableString stringWithString: textInput];
+
+    int targetPosition = (int) [text length] - 3;
+    [text deleteCharactersInRange: NSMakeRange(targetPosition + 1, 1)];
+    NSLog(@"2: %@", text);
+
+    [text insertString:@"." atIndex:targetPosition];
+    NSLog(@"3: %@", text);
+    
+    if ([text characterAtIndex: 0] == '.') {
+        [text insertString: @"0" atIndex: 0];
+    }
+
+    return text;
+}
+
+- (NSString *)shiftLeftText:(NSString *)textInput {
+    // 0.1* --> 0.01
+    // 12.345 --> 123.45
+    
+    NSMutableString *text = [NSMutableString stringWithString: textInput];
+    
+    int targetPosition = (int) [text length] - 2;
+    [text insertString:@"." atIndex:targetPosition];
+
+    [text deleteCharactersInRange: NSMakeRange(targetPosition - 2 , 1)];
+    
+    int consumeUntil = 0;
+    for (int i = 0; i < targetPosition - 2; i++) {
+        if ([text characterAtIndex: i] == '0') {
+            consumeUntil++;
+        }
+    }
+    [text deleteCharactersInRange: NSMakeRange(0, consumeUntil)];
+
+    return text;
 }
 
 - (IBAction)onBillTextFieldEditingChanged:(UITextField *)textField {
-    // NSLog(@"billTextFieldEditingChagned");
     NSString *billText = textField.text;
     if ([billText isEqualToString:@""]) {
         textField.text = @"$";
     }
     
-    if ([billText rangeOfString:@"."].location != NSNotFound) {
-        NSString *stringAfterDot = [[billText componentsSeparatedByString:@"."] lastObject];
-        if ([stringAfterDot length] == 2) {
-            [self.view endEditing: YES];
-            [self updateValues];
-        }
+    NSString *stringAfterDollar = [billText substringFromIndex: 1];
+    NSString *stringAfterDot = [[billText componentsSeparatedByString:@"."] lastObject];
+    if ([stringAfterDot length] == 1) {
+        // Deleted
+        textField.text = [NSString stringWithFormat: @"$%@", [self shiftRightText: stringAfterDollar]];
+    } else {
+        textField.text = [NSString stringWithFormat: @"$%@", [self shiftLeftText: stringAfterDollar]];
     }
 }
 

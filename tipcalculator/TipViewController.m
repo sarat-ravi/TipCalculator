@@ -7,6 +7,7 @@
 //
 
 #import "TipViewController.h"
+#import "SettingsViewController.h"
 
 @interface TipViewController ()
 
@@ -73,11 +74,33 @@
     self.totalAmountLabel.text = [NSString stringWithFormat:@"$%0.2f", totalAmount];
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: [self getCustomSettingsButton]];
     [self updateValues];
+}
+
+-(UIButton *)getCustomSettingsButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"⚙" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:25.0f];
+
+    button.frame=CGRectMake(0.0, 100.0, 60.0, 30.0);
+    [button addTarget:self action:@selector(onSettingsButton)  forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
+-(void) onSettingsButton
+{
+    NSLog(@"onSettingsButton");
+    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
 }
 
 -(void)didReceiveMemoryWarning

@@ -190,7 +190,12 @@
                     <rect key="frame" x="-61" y="-14" width="123" height="29"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="66K-Gc-eBu"/>
-                        <constraint firstAttribute="height" constant="28" id="h1u-ao-DUo"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="G4I-dq-Yvr">
+                            <variation key="widthClass=compact" constant="28"/>
+                        </constraint>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="28" id="h1u-ao-DUo">
+                            <variation key="widthClass=compact" constant="80"/>
+                        </constraint>
                     </constraints>
                     <segments>
                         <segment title="Bad"/>
@@ -201,12 +206,14 @@
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="66K-Gc-eBu"/>
+                            <exclude reference="G4I-dq-Yvr"/>
                             <exclude reference="h1u-ao-DUo"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
                         <mask key="constraints">
                             <include reference="66K-Gc-eBu"/>
+                            <include reference="G4I-dq-Yvr"/>
                             <include reference="h1u-ao-DUo"/>
                         </mask>
                     </variation>
@@ -413,7 +420,9 @@
                 <constraint firstItem="Xdd-Ui-4Ob" firstAttribute="top" secondItem="kbR-i2-Gjw" secondAttribute="bottom" constant="38" id="BYd-lh-b1e">
                     <variation key="widthClass=compact" constant="5"/>
                 </constraint>
-                <constraint firstItem="gBR-YD-ZoI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="f5B-ts-K1t" secondAttribute="bottom" priority="750" constant="50" id="C4J-Mt-grN"/>
+                <constraint firstItem="gBR-YD-ZoI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="f5B-ts-K1t" secondAttribute="bottom" priority="750" constant="50" id="C4J-Mt-grN">
+                    <variation key="widthClass=compact" constant="60"/>
+                </constraint>
                 <constraint firstAttribute="bottom" secondItem="qXK-OW-UEM" secondAttribute="bottom" constant="211" id="Dfg-qZ-Xyt">
                     <variation key="widthClass=compact" constant="20"/>
                 </constraint>
@@ -456,8 +465,11 @@
                     <variation key="widthClass=compact" constant="0.0"/>
                 </constraint>
                 <constraint firstItem="4Rj-5a-7ME" firstAttribute="bottom" secondItem="gpv-S2-gMw" secondAttribute="bottom" id="gUn-ej-C0c"/>
-                <constraint firstItem="f5B-ts-K1t" firstAttribute="top" secondItem="9R7-Ot-a0a" secondAttribute="bottom" constant="8" symbolic="YES" id="gaL-Td-onh"/>
+                <constraint firstItem="f5B-ts-K1t" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9R7-Ot-a0a" secondAttribute="bottom" constant="8" symbolic="YES" id="gaL-Td-onh"/>
                 <constraint firstItem="qXK-OW-UEM" firstAttribute="trailing" secondItem="mIV-QK-EXE" secondAttribute="trailing" id="h3c-9p-9Ep"/>
+                <constraint firstItem="f5B-ts-K1t" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9R7-Ot-a0a" secondAttribute="bottom" priority="750" constant="15" id="hHN-S5-M6f">
+                    <variation key="widthClass=compact" constant="40"/>
+                </constraint>
                 <constraint firstAttribute="centerY" secondItem="9Qx-RY-62L" secondAttribute="centerY" priority="250" id="hUs-PU-OBe"/>
                 <constraint firstAttribute="trailing" secondItem="qXK-OW-UEM" secondAttribute="trailing" constant="44" id="hYR-fw-hN5">
                     <variation key="widthClass=compact" constant="10"/>
@@ -508,6 +520,7 @@
                     <exclude reference="7fX-Ff-nYn"/>
                     <exclude reference="S41-Ub-bM8"/>
                     <exclude reference="gaL-Td-onh"/>
+                    <exclude reference="hHN-S5-M6f"/>
                     <exclude reference="27P-DB-U9X"/>
                     <exclude reference="8K6-3t-o7U"/>
                     <exclude reference="C4J-Mt-grN"/>
@@ -594,6 +607,7 @@
                     <include reference="7fX-Ff-nYn"/>
                     <include reference="S41-Ub-bM8"/>
                     <include reference="gaL-Td-onh"/>
+                    <include reference="hHN-S5-M6f"/>
                     <include reference="27P-DB-U9X"/>
                     <include reference="8K6-3t-o7U"/>
                     <include reference="C4J-Mt-grN"/>

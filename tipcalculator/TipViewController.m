@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipAmountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *youPayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalAmountLabel;
+@property (strong, nonatomic) NSString *currencySymbol;
 
 // Actions
 - (IBAction)onSegmentedControlValueChanged:(id)sender;
@@ -44,8 +45,14 @@
     self = [super initWithNibName: nibNameOrNil bundle: nibBundleOrNil];
     if (self) {
         self.title = @"Tip Calculator";
+        [self setCurrencySymbol];
     }
     return self;
+}
+
+-(void)setCurrencySymbol {
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    self.currencySymbol = [currentLocale objectForKey:NSLocaleCurrencySymbol];
 }
 
 -(void)updateValues
@@ -68,15 +75,17 @@
     float youPay = totalAmount / numPeople;
     
     // update labels
-    self.billTextField.text = [NSString stringWithFormat:@"$%0.2f", billAmount];
-    self.tipAmountLabel.text = [NSString stringWithFormat:@"$%0.2f", tipAmount];
-    self.youPayLabel.text = [NSString stringWithFormat:@"$%0.2f", youPay];
-    self.totalAmountLabel.text = [NSString stringWithFormat:@"$%0.2f", totalAmount];
+    self.billTextField.text = [self formatCurrency: billAmount];
+    self.tipAmountLabel.text = [self formatCurrency: tipAmount];
+    self.youPayLabel.text = [self formatCurrency: youPay];
+    self.totalAmountLabel.text = [self formatCurrency: totalAmount];
 }
 
--(void)loadValues {
-    int index = (int) self.serviceSegmentedControl.selectedSegmentIndex;
-    
+-(NSString *)formatCurrency: (float) amount {
+    return [NSString stringWithFormat:@"%@%0.2f", self.currencySymbol, amount];
+}
+
+-(int)getTipPercentForSegmentedControlIndex: (int) index {
     NSArray *tipKeys = @[@"TERRIBLE_SERVICE_PERCENT", @"DECENT_SERVICE_PERCENT", @"GREAT_SERVICE_PERCENT"];
     NSArray *defaultTipPercents = @[@(10), @(15), @(20)];
     NSString *tipKey = [tipKeys objectAtIndex: index];
@@ -86,6 +95,13 @@
     if ([defaults objectForKey: tipKey] != nil) {
         tipPercent = (int) [defaults integerForKey: tipKey];
     }
+    
+    return tipPercent;
+}
+
+-(void)loadValues {
+    int index = (int) self.serviceSegmentedControl.selectedSegmentIndex;
+    int tipPercent = [self getTipPercentForSegmentedControlIndex: index];
     
     self.tipPercentLabel.text = [NSString stringWithFormat: @"%d%%", tipPercent];
     self.tipPercentStepper.value = (double) tipPercent;
@@ -142,17 +158,8 @@
     [self.view endEditing: YES];
     
     int index = (int) self.serviceSegmentedControl.selectedSegmentIndex;
+    int tipPercent = [self getTipPercentForSegmentedControlIndex: index];
 
-    NSArray *tipKeys = @[@"TERRIBLE_SERVICE_PERCENT", @"DECENT_SERVICE_PERCENT", @"GREAT_SERVICE_PERCENT"];
-    NSArray *defaultTipPercents = @[@(10), @(15), @(20)];
-    NSString *tipKey = [tipKeys objectAtIndex: index];
-    
-    int tipPercent = (int) [defaultTipPercents objectAtIndex: index];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey: tipKey] != nil) {
-        tipPercent = (int) [defaults integerForKey: tipKey];
-    }
-    
     [self.tipPercentStepper setValue: tipPercent];
     self.tipPercentLabel.text = [NSString stringWithFormat:@"%d%%", tipPercent];
     [self updateValues];
@@ -182,7 +189,7 @@
 
 - (IBAction)billTextFieldDidBeginEditing:(UITextField *)textField {
     NSLog(@"billTextFieldDidBeginEditing");
-    textField.text = @"$0.00";
+    textField.text = [self formatCurrency: 0.0];
 }
 
 - (NSString *)shiftRightText:(NSString *)textInput {
@@ -193,10 +200,7 @@
 
     int targetPosition = (int) [text length] - 3;
     [text deleteCharactersInRange: NSMakeRange(targetPosition + 1, 1)];
-    NSLog(@"2: %@", text);
-
     [text insertString:@"." atIndex:targetPosition];
-    NSLog(@"3: %@", text);
     
     if ([text characterAtIndex: 0] == '.') {
         [text insertString: @"0" atIndex: 0];
@@ -229,18 +233,16 @@
 
 - (IBAction)onBillTextFieldEditingChanged:(UITextField *)textField {
     NSString *billText = textField.text;
-    if ([billText isEqualToString:@""]) {
-        textField.text = @"$";
-    }
-    
     NSString *stringAfterDollar = [billText substringFromIndex: 1];
     NSString *stringAfterDot = [[billText componentsSeparatedByString:@"."] lastObject];
+    float billAmount;
     if ([stringAfterDot length] == 1) {
-        // Deleted
-        textField.text = [NSString stringWithFormat: @"$%@", [self shiftRightText: stringAfterDollar]];
+        billAmount = [[self shiftRightText: stringAfterDollar] floatValue];
     } else {
-        textField.text = [NSString stringWithFormat: @"$%@", [self shiftLeftText: stringAfterDollar]];
+        billAmount = [[self shiftLeftText: stringAfterDollar] floatValue];
     }
+    
+    textField.text = [self formatCurrency: billAmount];
 }
 
 - (IBAction)billTextFieldEditingDidEnd:(UITextField *)textField {

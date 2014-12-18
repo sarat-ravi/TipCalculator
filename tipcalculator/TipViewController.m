@@ -90,12 +90,11 @@
     NSArray *defaultTipPercents = @[@(10), @(15), @(20)];
     NSString *tipKey = [tipKeys objectAtIndex: index];
     
-    int tipPercent = (int) [defaultTipPercents objectAtIndex: index];
+    int tipPercent = [[defaultTipPercents objectAtIndex: index] intValue];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey: tipKey] != nil) {
         tipPercent = (int) [defaults integerForKey: tipKey];
     }
-    
     return tipPercent;
 }
 

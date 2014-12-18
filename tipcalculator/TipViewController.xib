@@ -196,6 +196,7 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="28" id="h1u-ao-DUo">
                             <variation key="widthClass=compact" constant="80"/>
                         </constraint>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" id="tHr-OK-i2F"/>
                     </constraints>
                     <segments>
                         <segment title="Bad"/>
@@ -208,6 +209,7 @@
                             <exclude reference="66K-Gc-eBu"/>
                             <exclude reference="G4I-dq-Yvr"/>
                             <exclude reference="h1u-ao-DUo"/>
+                            <exclude reference="tHr-OK-i2F"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
@@ -215,6 +217,7 @@
                             <include reference="66K-Gc-eBu"/>
                             <include reference="G4I-dq-Yvr"/>
                             <include reference="h1u-ao-DUo"/>
+                            <include reference="tHr-OK-i2F"/>
                         </mask>
                     </variation>
                     <connections>

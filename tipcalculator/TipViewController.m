@@ -170,41 +170,37 @@
 }
 
 - (NSString *)shiftRightText:(NSString *)textInput {
-    // 0.1 --> 0.01
-    // 12.3 --> 1.23
-    
     NSMutableString *text = [NSMutableString stringWithString: textInput];
 
+    // Move the dot one digit to the left.
     int targetPosition = (int) [text length] - 3;
     [text deleteCharactersInRange: NSMakeRange(targetPosition + 1, 1)];
     [text insertString:@"." atIndex:targetPosition];
     
+    // If first character is zero, add a zero in front.
     if ([text characterAtIndex: 0] == '.') {
         [text insertString: @"0" atIndex: 0];
     }
-
+    
     return text;
 }
 
 - (NSString *)shiftLeftText:(NSString *)textInput {
-    // 0.1* --> 0.01
-    // 12.345 --> 123.45
-    
     NSMutableString *text = [NSMutableString stringWithString: textInput];
     
+    // Move the dot one digit to the right.
     int targetPosition = (int) [text length] - 2;
     [text insertString:@"." atIndex:targetPosition];
-
     [text deleteCharactersInRange: NSMakeRange(targetPosition - 2 , 1)];
     
+    // Remove all leading zeroes.
     int consumeUntil = 0;
-    for (int i = 0; i < targetPosition - 2; i++) {
-        if ([text characterAtIndex: i] == '0') {
-            consumeUntil++;
+    for (; consumeUntil < targetPosition; consumeUntil++) {
+        if ([text characterAtIndex: consumeUntil] != '0') {
+            break;
         }
     }
     [text deleteCharactersInRange: NSMakeRange(0, consumeUntil)];
-
     return text;
 }
 

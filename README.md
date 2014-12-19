@@ -1,6 +1,9 @@
 # Tip Calculator by Sarat Tallamraju
 
-The Tip Calculator features an extremely intuitive interface that has been specifically designed for maximum utility without introducing too much complexity. 
+The Tip Calculator is an app that lets the user calculate the tip amount and the total, based on the service at the venue. The Tip Calculator
+- Features an extremely intuitive UI
+- Extremely simple to use
+- Designed for maximum utility without adding too much complexity
 
 Time spent: 2 hours until feature completion, 1 hour for code refactoring and documentation, and 5 hours obsessing over UI and Design.
 

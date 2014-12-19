@@ -13,7 +13,15 @@
 
 @interface BaseViewController : UIViewController
 
+/*
+ Sets the background of the view using two colors that are part of a gradient.
+ */
 -(void)setBackgroundGradient;
+
+/*
+ Get the tip percent for the given key from the user settings, or return some default value if no such setting is found.
+ */
+-(int)getTipPercentForKey:(NSString *)key;
 
 @end
 

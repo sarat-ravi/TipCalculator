@@ -87,15 +87,8 @@
 
 -(int)getTipPercentForSegmentedControlIndex: (int) index {
     NSArray *tipKeys = @[@"TERRIBLE_SERVICE_PERCENT", @"DECENT_SERVICE_PERCENT", @"GREAT_SERVICE_PERCENT"];
-    NSArray *defaultTipPercents = @[@(10), @(15), @(20)];
     NSString *tipKey = [tipKeys objectAtIndex: index];
-    
-    int tipPercent = [[defaultTipPercents objectAtIndex: index] intValue];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey: tipKey] != nil) {
-        tipPercent = (int) [defaults integerForKey: tipKey];
-    }
-    return tipPercent;
+    return [self getTipPercentForKey: tipKey];
 }
 
 -(void)loadValues {
@@ -138,20 +131,6 @@
     [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
 }
 
--(void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // DIspose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if([self respondsToSelector:@selector(edgesForExtendedLayout)])
-        [self setEdgesForExtendedLayout:UIRectEdgeBottom];
-}
-
 - (IBAction)onSegmentedControlValueChanged:(id)sender {
     NSLog(@"onSegmentedControlValueChanged");
     [self.view endEditing: YES];
@@ -163,7 +142,6 @@
     self.tipPercentLabel.text = [NSString stringWithFormat:@"%d%%", tipPercent];
     [self updateValues];
 }
-
 
 - (IBAction)onTap:(id)sender {
     [self.view endEditing: YES];

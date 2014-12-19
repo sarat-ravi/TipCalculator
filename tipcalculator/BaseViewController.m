@@ -22,15 +22,48 @@
     [self setBackgroundGradient];
 }
 
+-(int)getTipPercentForKey:(NSString *)tipKey {
+    
+    // Define some defaults.
+    NSDictionary *tipKeyToDefaultMapping = @{
+        @"TERRIBLE_SERVICE_PERCENT": @10,
+        @"DECENT_SERVICE_PERCENT": @15,
+        @"GREAT_SERVICE_PERCENT": @20,
+    };
+    
+    // Assert that the tip key is valid.
+    if ([tipKeyToDefaultMapping objectForKey:tipKey] == nil) {
+        [NSException raise: @"Invalid key" format: @"Key '%@' is invalid", tipKey];
+    }
+    
+    // Attempt to load the tip percent from user settings, or set to default.
+    int tipPercent = [[tipKeyToDefaultMapping objectForKey: tipKey] intValue];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey: tipKey] != nil) {
+        tipPercent = (int) [defaults integerForKey: tipKey];
+    }
+    return tipPercent;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        [self setEdgesForExtendedLayout:UIRectEdgeBottom];
+}
+
 -(void)setBackgroundGradient {
-    // UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 50.0f)];
+    // Grab the controller's view.
     UIView *view = self.view;
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = view.bounds;
+    
+    // Set the top and bottom color.
     UIColor *bottomColor = [UIColor colorWithRed:0.10 green:0.64 blue:0.61 alpha:1.0];
     UIColor *topColor = [UIColor colorWithRed:0.30 green:0.47 blue:0.75 alpha:1.0];
+    
+    // Set the gradient with these two colors.
     gradient.colors = [NSArray arrayWithObjects:(id)[topColor CGColor], (id)[bottomColor CGColor], nil];
-    // gradient.colors = [NSArray arrayWithObjects:(id)topColor, (id)bottomColor, nil];
     [view.layer insertSublayer:gradient atIndex:0];
 }
 

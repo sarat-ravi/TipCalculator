@@ -406,7 +406,7 @@
                     </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.70490244708994709" blue="0.70490244708994709" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="G5x-08-bdS" firstAttribute="trailing" secondItem="2Rw-rf-nEv" secondAttribute="trailing" id="1Hz-er-qi1"/>

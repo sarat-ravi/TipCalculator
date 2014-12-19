@@ -301,7 +301,7 @@
                     </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.082352941176470587" green="0.65490196078431373" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.054901960784313725" green="0.43137254901960786" blue="0.42352941176470588" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="AgD-kZ-wWY" firstAttribute="trailing" secondItem="6ZZ-lF-W2s" secondAttribute="trailing" id="3xz-mz-MUL"/>
                 <constraint firstAttribute="trailing" secondItem="QD6-nc-ZVG" secondAttribute="trailing" constant="82" id="4FG-PW-acM">

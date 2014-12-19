@@ -24,7 +24,7 @@
     
     TipViewController *vc = [[TipViewController alloc] initWithNibName:@"TipViewController" bundle:nil];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    nvc.navigationBar.barTintColor = [UIColor colorWithRed:0.19 green:0.57 blue:0.58 alpha:1.0];
+    nvc.navigationBar.barTintColor = [UIColor colorWithRed:0.30 green:0.47 blue:0.75 alpha:1.0];
     nvc.navigationBar.tintColor = [UIColor whiteColor];
     nvc.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]};
     self.window.rootViewController = nvc;

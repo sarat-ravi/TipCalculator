@@ -15,6 +15,7 @@
 		41E24B631A3E21DF00C47BE8 /* TipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41E24B621A3E21DF00C47BE8 /* TipViewController.xib */; };
 		41E874D61A3FFD7B000FEBB7 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E874D51A3FFD7B000FEBB7 /* SettingsViewController.m */; };
 		41E874D91A4001AB000FEBB7 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41E874D81A4001AB000FEBB7 /* SettingsViewController.xib */; };
+		41E97E0B1A43E21F0012A99D /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E97E0A1A43E21F0012A99D /* BaseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		41E874D51A3FFD7B000FEBB7 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		41E874D71A3FFDF7000FEBB7 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		41E874D81A4001AB000FEBB7 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		41E97E091A43E1570012A99D /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		41E97E0A1A43E21F0012A99D /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 				41E874D51A3FFD7B000FEBB7 /* SettingsViewController.m */,
 				41E874D71A3FFDF7000FEBB7 /* SettingsViewController.h */,
 				41E874D81A4001AB000FEBB7 /* SettingsViewController.xib */,
+				41E97E091A43E1570012A99D /* BaseViewController.h */,
+				41E97E0A1A43E21F0012A99D /* BaseViewController.m */,
 			);
 			path = tipcalculator;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41E24B3A1A3D277200C47BE8 /* AppDelegate.m in Sources */,
+				41E97E0B1A43E21F0012A99D /* BaseViewController.m in Sources */,
 				41E24B5E1A3D2EB800C47BE8 /* TipViewController.m in Sources */,
 				41E24B371A3D277200C47BE8 /* main.m in Sources */,
 				41E874D61A3FFD7B000FEBB7 /* SettingsViewController.m in Sources */,

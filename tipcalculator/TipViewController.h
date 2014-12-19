@@ -9,12 +9,10 @@
 #ifndef tipcalculator_TipViewController_h
 #define tipcalculator_TipViewController_h
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface TipViewController : UIViewController
-{
-    
-}
+@interface TipViewController : BaseViewController
+
 @end
 
 #endif

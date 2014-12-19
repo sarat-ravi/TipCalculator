@@ -9,9 +9,9 @@
 #ifndef tipcalculator_SettingsViewController_h
 #define tipcalculator_SettingsViewController_h
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface SettingsViewController: UIViewController
+@interface SettingsViewController: BaseViewController
 
 @end
 
